@@ -8,7 +8,7 @@ function Card({props}) {
 
     
     return (
-        <div>
+        <div className={styles.container}>
             <div className={styles.card} style={{backgroundImage:`url(${props.poster})`}}>
                 <div className={styles.votes}>
                     <img src={stars} alt=""/>
@@ -22,7 +22,7 @@ function Card({props}) {
                     <h1>{props.original_title}</h1>
                 </div>
                 <div className={styles.info}>
-                    <img src={info} className={styles.infoIcon} alt=""/>
+                <img src={info} className={styles.infoIcon} alt=""/>
             </div>
             </div>
             
