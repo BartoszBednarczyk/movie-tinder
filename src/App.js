@@ -12,20 +12,22 @@ import getRandomMovie from './api/index'
 import hamburger from './hamburgers.module.css'
 import cx from 'classnames'
 
+import ClimbingBoxLoader from 'react-spinners/ClimbingBoxLoader'
+
 const actionsStyles = {
   display: "flex",
   justifyContent: "space-between",
   marginTop: 12,
 };
 
-const wrapper = {position: "relative", bottom: "0"}
 
 class App extends React.Component {
 
   state = {
     cards: [],
     hamburgerToggle: false,
-    hamburgerClass: cx(hamburger.hamburger, hamburger.hamburgerElastic)
+    hamburgerClass: cx(hamburger.hamburger, hamburger.hamburgerElastic),
+    saved: []
   };
 
   flipCard = () => {
@@ -34,7 +36,7 @@ class App extends React.Component {
       this.setState(()=>({cards: current}))
   }
   swapCard = () => {
-    console.log("Test")
+    
     var current = this.state.cards
     current[0].isFlipped = false
     this.setState(()=>({cards: current}))
@@ -47,17 +49,24 @@ class App extends React.Component {
 
   add = () =>{
     this.setState(prev => ({cards: [...prev.cards, {original_title:"new"}]}))
-    console.log(this.state.cards)
+    
   }
 
   swipedLeft = () => {
-    console.log("Swiped left")
+    
   }
   swipedRight = () => {
-    console.log("Swiped right")
+    
+    var current = this.state.cards[0]
+    this.setState(prev => ({saved: [...prev.saved, current]}))
+    
+    setTimeout(() => {
+      this.setState(()=>({elements: this.state.saved.map((item, i) => <ListElement key={i} props={item}/>)}))
+    }, 100);
   }
 
-  connect = () =>{
+  connect = (test) =>{
+    test==='left'?this.swipedLeft():this.swipedRight()
     this.swapCard()
     this.info()
   }
@@ -108,7 +117,7 @@ class App extends React.Component {
 
     this.state.cards.length < 6 ? this.info() : console.log("")
     
-    console.log(this.state.cards)
+    
   }
  
   componentDidMount(){
@@ -124,17 +133,17 @@ class App extends React.Component {
           {cards.length > 4 ? (
             <div>
               <div className={styles.thirdWrapper}>
-            <Card props={cards[2]} zIndex={-3}/>
+            <Card props={cards[2]} zindex={-3}/>
               </div>
               <div className={styles.secondWrapper}>
-            <Card props={cards[1]} zIndex={-2}/>
+            <Card props={cards[1]} zindex={-2}/>
               </div>
             <div className={styles.wrapper}>
               <Swipeable
                 buttons={({left, right}) => (
                   <div className={styles.details} style={actionsStyles}>
-                    <button className={styles.button} onClick={left}><img src={reject}/></button>
-                    <button className={styles.button} onClick={right}><img src={heart}/></button>
+                    <button className={styles.button} onClick={left}><img alt="Dislike button" src={reject}/></button>
+                    <button className={styles.button} onClick={right}><img alt="Like button" src={heart}/></button>
                   </div>
                 )}
                 onAfterSwipe={(this.remove)}
@@ -143,7 +152,7 @@ class App extends React.Component {
                 limit={200}
               >
                 
-                <Card props={cards[0]} zIndex={0}></Card>
+                <Card props={cards[0]} zindex={0}></Card>
                 
               </Swipeable>
               
@@ -157,13 +166,15 @@ class App extends React.Component {
             </button>
             </div>
             <div className={this.state.hamburgerToggle?cx(styles.menu, styles.animate, styles.in):cx(styles.menu, styles.animate, styles.out)}>
-
+            {this.state.elements}
             </div>
             </div>
           )
           
           : (
-            <div zIndex={-2}>Loading</div>
+            <div className={styles.flexContainer}>
+              <ClimbingBoxLoader color={"yellow"}></ClimbingBoxLoader>
+            </div>
           )}
         
         

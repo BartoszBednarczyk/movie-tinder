@@ -1,5 +1,4 @@
-import React, {useState, useEffect} from 'react'
-import Zoom from 'react-reveal/Zoom'
+import React from 'react'
 import styles from './Card.module.css'
 import stars from '../images/shine.png'
 import info from '../images/info.png'
@@ -8,17 +7,6 @@ import nomovie from '../images/nomovie.jpg'
 
 function Card({props}) {
 
-    const [isFlipped, flip] = useState(false)
-
-    var gate = true
-
-    const handleClick = () => {
-        flip(prev => !prev)
-    }
-
-    const handleClick2 = () => {
-        
-    }
 
     const poster = props.poster?props.poster:nomovie
     
@@ -54,7 +42,7 @@ function Card({props}) {
                     <div className={styles.elementLine} />
                     <h5 className={styles.element}>Runtime: {props.runtime}'</h5>
                     <div className={styles.elementLine} />
-                    <a className={styles.element} href={"https://www.imdb.com/title/"+props.imdb+"/"} target="_blank">IMDB</a>
+                    <a className={styles.element} href={"https://www.imdb.com/title/"+props.imdb+"/"} target="_blank" rel="noopener noreferrer">IMDB</a>
                     
 
                 </div>
