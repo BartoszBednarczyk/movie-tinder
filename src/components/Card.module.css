@@ -1,12 +1,12 @@
 .card {
     width: 40vh;
     height: 60vh;
-    
+    position: relative;
     box-shadow: inset 0px -50px 50px 25px rgba(0,0,0,0.9), 0px 0px 25px 1px black ;
     border-radius: 10px;
     background-position: center;
     background-size: cover;
-    
+    background-color: white;
 }
 
 .title {
@@ -49,6 +49,7 @@ h1 {
 .infoIcon {
     fill: white;
     max-width: 4vh;
+    cursor: pointer;
 }
 
 .info {
@@ -56,4 +57,35 @@ h1 {
     bottom: 0;
     right: 0;
     margin: 10px;
+    cursor: pointer;
+}
+
+.darkBackground {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.8);
+    display: flex;
+    flex-direction: column;
+}
+
+.elementLine {
+    height: 1px;
+    width: 40%;
+    margin: 2%;
+    background-color: white;
+}
+
+.element {
+    margin: 2%;
+    color: white;
+}
+
+.darkBackground p {
+    font-size: 0.8em;
+}
+
+.darkBackground a {
+    color: white;
+    font-size: 0.8em;
+
 }
