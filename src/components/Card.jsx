@@ -1,15 +1,32 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import Zoom from 'react-reveal/Zoom'
 import styles from './Card.module.css'
 import stars from '../images/shine.png'
 import info from '../images/info.png'
+import ReactCardFlip from 'react-card-flip'
+import nomovie from '../images/nomovie.jpg'
 
 function Card({props}) {
 
+    const [isFlipped, flip] = useState(false)
+
+    var gate = true
+
+    const handleClick = () => {
+        flip(prev => !prev)
+    }
+
+    const handleClick2 = () => {
+        
+    }
+
+    const poster = props.poster?props.poster:nomovie
+    
     
     return (
         <div className={styles.container}>
-            <div className={styles.card} style={{backgroundImage:`url(${props.poster})`}}>
+            <ReactCardFlip isFlipped={props.isFlipped} flipDirection="horizontal" infinite="true">
+            <div className={styles.card} style={{backgroundImage:`url(${poster})`}}>
                 <div className={styles.votes}>
                     <img src={stars} alt=""/>
                     <p><b>{props.vote_average?props.vote_average:"?"}</b></p>
@@ -21,12 +38,30 @@ function Card({props}) {
                     </div>
                     <h1>{props.original_title}</h1>
                 </div>
-                <div className={styles.info}>
+                <div className={styles.info} onClick={() => props.flipCard()}>
                 <img src={info} className={styles.infoIcon} alt=""/>
-            </div>
+                </div>
             </div>
             
+            <div className={styles.card} style={{backgroundImage:`url(${poster})`}}>
+                <div className={styles.darkBackground}>
+                    <div className={styles.info} onClick={() => props.flipCard()}>
+                    <img src={info} className={styles.infoIcon} alt=""/>
+                    </div>
+                    <h5 className={styles.element}><b>{props.original_title}</b></h5>
+                    <div className={styles.elementLine} />
+                    <p className={styles.element}>{props.overview?props.overview:props.tagline}</p>
+                    <div className={styles.elementLine} />
+                    <h5 className={styles.element}>Runtime: {props.runtime}'</h5>
+                    <div className={styles.elementLine} />
+                    <a className={styles.element} href={"https://www.imdb.com/title/"+props.imdb+"/"} target="_blank">IMDB</a>
+                    
+
+                </div>
+                
+            </div>
             
+            </ReactCardFlip>
         </div>
         
 
