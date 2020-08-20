@@ -110,3 +110,30 @@ img {
     justify-content: center;
     align-items: center;
 }
+
+@media (orientation: landscape) {
+    .menu {
+        width: 20vw;
+    }
+    .animate.in {
+        transform: translateX(80vw);
+      }
+    
+    .animate.out {
+        transform: translateX(100vw);
+    }
+}
+
+@media (orientation: portrait) {
+    .menu {
+        width: 80vw;
+    }
+
+    .animate.in {
+        transform: translateX(20vw);
+      }
+    
+    .animate.out {
+        transform: translateX(100vw);
+    }
+}
